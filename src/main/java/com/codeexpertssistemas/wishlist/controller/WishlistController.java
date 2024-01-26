@@ -3,9 +3,9 @@ package com.codeexpertssistemas.wishlist.controller;
 import com.codeexpertssistemas.wishlist.model.Wishlist;
 import com.codeexpertssistemas.wishlist.repository.WishlistRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,4 +24,13 @@ public class WishlistController {
     public List<Wishlist> list(){
         return this.wishlistRepository.findAll();
     }
+
+    @PostMapping
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public Wishlist createWishlist(@RequestBody Wishlist wishlist){
+        return this.wishlistRepository.save(wishlist);
+        //return ResponseEntity.status(HttpStatus.CREATED)
+                //.body(wishlistRepository.save(wishlist));
+    }
+
 }
