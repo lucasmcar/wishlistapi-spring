@@ -11,7 +11,7 @@ public class Wishlist {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idWish;
+    private Long wishListId;
     private String item;
     private String link;
 

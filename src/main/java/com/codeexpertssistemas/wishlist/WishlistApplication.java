@@ -20,17 +20,6 @@ public class WishlistApplication {
 		app.run( args);
 	}
 
-	@Bean
-	CommandLineRunner init(WishlistRepository wishlistRepository){
-		return args -> {
-			wishlistRepository.deleteAll();
 
-			Wishlist wl = new Wishlist();
-			wl.setItem("Teste");
-			wl.setLink("Url de teste");
-
-			wishlistRepository.save(wl);
-		};
-	}
 
 }
