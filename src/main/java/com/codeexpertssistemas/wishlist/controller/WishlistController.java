@@ -51,4 +51,15 @@ public class WishlistController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id){
+        return this.wishlistRepository.findById(id)
+                .map(record -> {
+                    this.wishlistRepository.deleteById(id);
+                    return ResponseEntity.noContent().<Void>build();
+                })
+                .orElse(ResponseEntity.notFound().build());
+
+    }
+
 }
