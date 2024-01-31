@@ -6,7 +6,6 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,10 +27,8 @@ public class WishlistController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Wishlist> findById(@PathVariable("id") @NotNull @Positive Long id){
-        return this.wishlistService.findById(id)
-                .map(record -> ResponseEntity.ok().body(record))
-                .orElse(ResponseEntity.notFound().build());
+    public Wishlist findById(@PathVariable("id") @NotNull @Positive Long id){
+        return this.wishlistService.findById(id);
     }
 
     @PostMapping
@@ -43,12 +40,8 @@ public class WishlistController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Wishlist> updateById(@PathVariable("id") @Valid @NotNull @Positive Long id , @RequestBody Wishlist wishlist){
-        return this.wishlistService.update(id,wishlist)
-                .map(record -> {
-                    return ResponseEntity.ok().body(record);
-                })
-                .orElse(ResponseEntity.notFound().build());
+    public Wishlist updateById(@PathVariable("id") @Valid @NotNull @Positive Long id , @RequestBody Wishlist wishlist){
+        return this.wishlistService.update(id,wishlist);
     }
 
     /*@DeleteMapping("/{id}")
@@ -66,11 +59,9 @@ public class WishlistController {
      * Primeiro caminho
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> softDelete(@PathVariable("id") @NotNull @Positive Long id, @Valid Wishlist wishlist){
-        if(wishlistService.delete(id)){
-            return ResponseEntity.noContent().<Void>build();
-        }
-        return ResponseEntity.notFound().build();
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable("id") @NotNull @Positive Long id){
+        wishlistService.delete(id);
     }
 
 }
