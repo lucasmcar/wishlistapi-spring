@@ -1,6 +1,6 @@
 package com.codeexpertssistemas.wishlist.controller;
 
-import com.codeexpertssistemas.wishlist.model.Wishlist;
+import com.codeexpertssistemas.wishlist.dto.WishlistDTO;
 import com.codeexpertssistemas.wishlist.service.WishlistService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -22,25 +22,25 @@ public class WishlistController {
         this.wishlistService = wishlistService;
     }
     @GetMapping
-    public @ResponseBody  List<Wishlist> list(){
+    public @ResponseBody  List<WishlistDTO> list(){
         return this.wishlistService.list();
     }
 
     @GetMapping("/{id}")
-    public Wishlist findById(@PathVariable("id") @NotNull @Positive Long id){
+    public WishlistDTO findById(@PathVariable("id") @NotNull @Positive Long id){
         return this.wishlistService.findById(id);
     }
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public Wishlist createWishlist(@RequestBody @Valid Wishlist wishlist){
+    public WishlistDTO createWishlist(@RequestBody @Valid WishlistDTO wishlist){
         return this.wishlistService.createWishlist(wishlist);
         //return ResponseEntity.status(HttpStatus.CREATED)
                 //.body(wishlistRepository.save(wishlist));
     }
 
     @PutMapping("/{id}")
-    public Wishlist updateById(@PathVariable("id") @Valid @NotNull @Positive Long id , @RequestBody Wishlist wishlist){
+    public WishlistDTO updateById(@PathVariable("id") @Valid @NotNull @Positive Long id , @RequestBody WishlistDTO wishlist){
         return this.wishlistService.update(id,wishlist);
     }
 
