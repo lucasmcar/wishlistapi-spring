@@ -2,6 +2,8 @@ package com.codeexpertssistemas.wishlist.model;
 
 
 
+import com.codeexpertssistemas.wishlist.enums.Status;
+import com.codeexpertssistemas.wishlist.enums.converters.StatusConverter;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -32,7 +34,7 @@ public class Wishlist {
 
     @NotNull
     @Column(length = 10, nullable = false)
-    @Pattern(regexp = "Ativo|Inativo")
-    private String status = "Ativo";
+    @Convert(converter = StatusConverter.class)
+    private Status status = Status.ATIVO;
 
 }

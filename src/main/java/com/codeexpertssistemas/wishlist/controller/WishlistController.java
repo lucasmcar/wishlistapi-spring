@@ -22,7 +22,7 @@ public class WishlistController {
         this.wishlistService = wishlistService;
     }
     @GetMapping
-    public @ResponseBody  List<WishlistDTO> list(){
+    public List<WishlistDTO> list(){
         return this.wishlistService.list();
     }
 
